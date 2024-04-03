@@ -23,6 +23,8 @@ def main():
     # sets up the window display
     pygame.display.set_caption("PyWordle - DaniellePashayan")
     SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
+    ICON = pygame.image.load("assets/Icon.png")
+    pygame.display.set_icon(ICON)
     
     # loads the fonts
     GUESSED_LETTER_FONT = pygame.font.Font("assets/FreeSansBold.otf", 50)
