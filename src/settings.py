@@ -1,5 +1,5 @@
-WIDTH = 700
-HEIGHT = 900
+WIDTH = 600
+HEIGHT = 800
 
 YELLOW = "#fcba03"
 GREEN = "#31b32d"
