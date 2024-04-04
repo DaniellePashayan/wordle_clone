@@ -2,6 +2,7 @@ import pygame
 import sys
 import random
 from src.settings import *
+from src.Indicator import Indicator
 
 class Game:
     def __init__(self):
@@ -39,6 +40,29 @@ class Game:
 
         self.game_result = ""
 
+    def draw_keyboard(self):
+        indicator_x, indicator_y = 20, 500 #TODO
+        # for i in range(len(KEYBOARD_ALPHABET)):
+            # for letter in KEYBOARD_ALPHABET:
+            #     new_ind = Indicator(indicator_x + 60, indicator_y + 60, letter, self.SCREEN)
+            #     self.indicators.append(new_ind)
+            #     new_ind.draw()
+            #     indicator_x += 100
+            # indicator_y +=100
+            # if i == 0:
+            #     indicator_x = 50
+            # elif i == 1:
+            #     indicator_x = 105
+            # break
+        for i in range(3):
+            test = Indicator(indicator_x + 60, indicator_y + 60, "A", self.SCREEN)
+            self.indicators.append(test)
+            indicator_x += 100
+        
+        for indicator in self.indicators:
+            indicator.draw()
+            
+            
     def game_loop(self):
         while True:
             for event in pygame.event.get():
@@ -48,4 +72,8 @@ class Game:
 
             self.SCREEN.fill("white")
             self.SCREEN.blit(self.BACKGROUND, self.BACKGROUND_RECT)
+            
+            self.draw_keyboard()
             pygame.display.update()
+            
+            
