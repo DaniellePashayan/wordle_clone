@@ -9,3 +9,5 @@ DARK_GRAY = "#d3d6da"
 LETTER_X_SPACING = 85
 LETTER_Y_SPACING = 12
 LETTER_SIZE = 75
+
+FONT = "assets/FreeSansBold.otf"
