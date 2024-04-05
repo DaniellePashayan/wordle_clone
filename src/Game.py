@@ -65,9 +65,7 @@ class Game:
     
     def select_random_word(self):
         # selects a random word from the list of words
-        w = random.choice(get_word_list())
-        print(w)
-        return w
+        return random.choice(get_word_list())
     
             
     def game_loop(self):
@@ -82,6 +80,5 @@ class Game:
             
             self.draw_keyboard()
             pygame.display.update()
-            pygame.display.flip()
             
             
