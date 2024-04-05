@@ -41,26 +41,21 @@ class Game:
         self.game_result = ""
 
     def draw_keyboard(self):
-        indicator_x, indicator_y = 20, 500 #TODO
-        # for i in range(len(KEYBOARD_ALPHABET)):
-            # for letter in KEYBOARD_ALPHABET:
-            #     new_ind = Indicator(indicator_x + 60, indicator_y + 60, letter, self.SCREEN)
-            #     self.indicators.append(new_ind)
-            #     new_ind.draw()
-            #     indicator_x += 100
-            # indicator_y +=100
-            # if i == 0:
-            #     indicator_x = 50
-            # elif i == 1:
-            #     indicator_x = 105
-            # break
-        for i in range(3):
-            test = Indicator(indicator_x + 60, indicator_y + 60, "A", self.SCREEN)
-            self.indicators.append(test)
-            indicator_x += 100
-        
-        for indicator in self.indicators:
-            indicator.draw()
+        indicator_y = 550
+        starting_indicator_x = [55, 80, 130]
+        # renders the rows of the keyboard
+        for i in range(len(KEYBOARD_ALPHABET)):
+            # renders the letters in each row
+            indicator_x = starting_indicator_x[i]
+            for letter in KEYBOARD_ALPHABET[i]:
+                new_ind = Indicator(indicator_x, indicator_y, letter, self.SCREEN)
+                self.indicators.append(new_ind)
+
+                # shifts the starting position of the letter on the x axis
+                indicator_x += INDICATOR_SIZE + 10
+                new_ind.draw()
+            # shifts the position of the letter on the y axis for each new row and resets the x axis
+            indicator_y += 50
             
             
     def game_loop(self):
@@ -75,5 +70,6 @@ class Game:
             
             self.draw_keyboard()
             pygame.display.update()
+            pygame.display.flip()
             
             
