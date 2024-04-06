@@ -37,7 +37,7 @@ if __name__ == "__main__":
                     print('checking')
                 elif event.key == pygame.K_BACKSPACE:
                     if len(game.current_guess_string) > 0:
-                        print('deleting')
+                        game.delete_letter()
                 else:
                     key_pressed = event.unicode.upper()
                     if key_pressed in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':

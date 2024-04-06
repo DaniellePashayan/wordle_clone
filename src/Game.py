@@ -82,4 +82,18 @@ class Game:
             bg_color=pygame.Color("white"),
             outline_color=pygame.Color("black"),
             font_size=60)
-        new_letter.draw()
+        self.guesses[self.count_of_guesses].append(new_letter)
+        self.current_guess.append(new_letter)
+        for guess in self.guesses:
+            for letter in guess:
+                letter.draw()
+        
+    def delete_letter(self):
+        last_letter = self.guesses[self.count_of_guesses][-1]
+        pygame.draw.rect(self.SCREEN, LIGHT_GRAY, last_letter.outline_dim)
+        pygame.draw.rect(self.SCREEN, pygame.Color("white"), last_letter.bg_dim)
+        # Remove the last letter from the current guess
+        self.guesses[self.count_of_guesses].pop()
+        self.current_guess_string = self.current_guess_string[:-1]
+        self.current_guess.pop()
+        self.current_letter_bg_x -= GUESS_SIZE_W + 10
