@@ -69,7 +69,7 @@ class Game:
         self.current_guess_string += key_pressed
         self.current_letter_bg_x += GUESS_SIZE_W + 10
         starting_y = 65
-        current_y = starting_y*(len(self.current_guess)+1)
+        current_y = starting_y*(self.count_of_guesses+1)
         # draws the letter on the screen
         new_letter = Indicator(
             x = self.current_letter_bg_x, 

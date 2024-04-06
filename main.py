@@ -32,12 +32,17 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                key_pressed = event.unicode.upper()
-                if key_pressed in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
-                    if len(game.current_guess_string) < 5:
-                        print(key_pressed)
-                        game.draw_letter(key_pressed)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    print('checking')
+                elif event.key == pygame.K_BACKSPACE:
+                    if len(game.current_guess_string) > 0:
+                        print('deleting')
+                else:
+                    key_pressed = event.unicode.upper()
+                    if key_pressed in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+                        if len(game.current_guess_string) < 5:
+                            game.draw_letter(key_pressed)
 
         pygame.display.update()
     
