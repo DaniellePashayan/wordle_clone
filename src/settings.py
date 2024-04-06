@@ -6,8 +6,6 @@ GREEN = "#6aaa64"
 DARK_GRAY = "#787c7e"
 LIGHT_GRAY = "#d3d6da"
 
-LETTER_X_SPACING = 10
-LETTER_Y_SPACING = 12
 LETTER_SIZE = 20
 
 FONT = "assets/FreeSansBold.otf"

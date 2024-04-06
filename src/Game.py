@@ -2,27 +2,12 @@ import pygame
 import sys
 import random
 from src.settings import *
-from src.Indicator import Indicator
+from src.indicator import Indicator
 from src.utility import get_word_list
 
 class Game:
-    def __init__(self):
-        pygame.init()
-
-        # sets up the window display
-        pygame.display.set_caption("PyWordle - DaniellePashayan")
-        self.SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
-        self.ICON = pygame.image.load("assets/Icon.png")
-        pygame.display.set_icon(self.ICON)
-
-        # loads the background placeholder image, resizes, and centers it
-        self.BACKGROUND = pygame.image.load("assets/blank.png")
-        aspect_ratio = self.BACKGROUND.get_width() / self.BACKGROUND.get_height()
-        new_width = 400
-        new_height = new_width / aspect_ratio
-        self.BACKGROUND = pygame.transform.scale(self.BACKGROUND, (new_width, new_height))
-        self.BACKGROUND_RECT = self.BACKGROUND.get_rect(center=(WIDTH // 2, 300))
-
+    def __init__(self, SCREEN: pygame.Surface) -> None:
+        self.SCREEN = SCREEN
         self.count_of_guesses = 0
 
         # each guess is going to be a list of 5 letters
@@ -42,7 +27,8 @@ class Game:
         self.game_result = ""
         
         self.selected_word = self.select_random_word()
-
+        self.draw_keyboard()
+    
     def draw_keyboard(self):
         indicator_y = 550
         spacing_gap = 5
@@ -69,19 +55,11 @@ class Game:
         print(w)
         return w
     
-            
-    def game_loop(self):
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-
-            self.SCREEN.fill("white")
-            self.SCREEN.blit(self.BACKGROUND, self.BACKGROUND_RECT)
-            
-            self.draw_keyboard()
-            pygame.display.update()
-            pygame.display.flip()
-            
-            
+    def draw_letter(self, key_pressed: str):
+        # adds the letter to the current guess
+        self.current_guess.append(key_pressed)
+        self.current_guess_string += key_pressed
+        self.current_letter_bg_x += 55
+        # draws the letter on the screen
+        new_letter = Indicator(self.current_letter_bg_x, 450, key_pressed, self.SCREEN)
+        new_letter.draw()

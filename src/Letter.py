@@ -1,7 +1,7 @@
 import pygame
 
 from settings import *
-from Game import Game
+from game import Game
 
 class Letter:
     def __init__(self, text: str, bg_position: tuple) -> None:
