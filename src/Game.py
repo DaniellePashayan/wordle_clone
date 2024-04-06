@@ -19,7 +19,8 @@ class Game:
         # stores the current guess as a string
         self.current_guess_string = ""
 
-        self.current_letter_bg_x = 110
+        self.current_letter_bg_x = 25
+        self.current_letter_bg_y = 65
 
         # a list that stores the Indicator objects. the indicator is placeholder that will represent each letter
         self.indicators = []
@@ -40,11 +41,18 @@ class Game:
             # renders the letters in each row
             indicator_x = starting_indicator_x[i]
             for letter in KEYBOARD_ALPHABET[i]:
-                new_ind = Indicator(indicator_x, indicator_y, letter, self.SCREEN)
+                new_ind = Indicator(
+                    x=indicator_x, 
+                    y=indicator_y,
+                    letter=letter,
+                    screen=self.SCREEN,
+                    width=KEYBOARD_SIZE_W,
+                    height=KEYBOARD_SIZE_H, 
+                    font_size=KEYBOARD_LETTER_SIZE)
                 self.indicators.append(new_ind)
 
                 # shifts the starting position of the letter on the x axis
-                indicator_x += INDICATOR_SIZE_W + spacing_gap
+                indicator_x += KEYBOARD_SIZE_W + spacing_gap
                 new_ind.draw()
             # shifts the position of the letter on the y axis for each new row and resets the x axis
             indicator_y += 55
@@ -59,7 +67,17 @@ class Game:
         # adds the letter to the current guess
         self.current_guess.append(key_pressed)
         self.current_guess_string += key_pressed
-        self.current_letter_bg_x += 55
+        self.current_letter_bg_x += GUESS_SIZE_W + 10
+        starting_y = 65
+        current_y = starting_y*(len(self.current_guess)+1)
         # draws the letter on the screen
-        new_letter = Indicator(self.current_letter_bg_x, 450, key_pressed, self.SCREEN)
+        new_letter = Indicator(
+            x = self.current_letter_bg_x, 
+            y = current_y, 
+            letter = key_pressed, 
+            screen = self.SCREEN, 
+            width = GUESS_SIZE_W,
+            height = GUESS_SIZE_H,            
+            bg_color=pygame.Color("green"),
+            font_size=60)
         new_letter.draw()

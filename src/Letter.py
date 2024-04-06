@@ -13,7 +13,7 @@ class Letter:
         self.bg_position = bg_position
         self.bg_x = bg_position[0]
         self.bg_y = bg_position[1]
-        self.bg_rect = (self.bg_x, self.bg_y, LETTER_SIZE, LETTER_SIZE)
+        self.bg_rect = (self.bg_x, self.bg_y, KEYBOARD_LETTER_SIZE, KEYBOARD_LETTER_SIZE)
         
         # sets the text and the position of the text
         self.text = text
