@@ -1,7 +1,7 @@
 import pygame
 
-from settings import *
-from Game import Game
+from src.settings import *
+from src.Window import Window
 
 class Letter:
     def __init__(self, text: str, bg_position: tuple) -> None:
@@ -29,15 +29,15 @@ class Letter:
     
     def draw(self):
         # puts the letter and the corresponding letter on the screen in the desired location on the screen
-        pygame.draw.rect(Game.SCREEN, pygame.Color(self.bg_color), self.bg_rect)
+        pygame.draw.rect(Window.SCREEN, pygame.Color(self.bg_color), self.bg_rect)
         if self.bg_color == 'white':
             pygame.draw.rect(Game.SCREEN, DARK_GRAY, self.bg_rect, 2)
         self.text_surface = self.GUESSED_LETTER_FONT.render(self.text, True, self.text_color)
-        Game.SCREEN.blit(self.text_surface, self.text_rect)
+        Window.SCREEN.blit(self.text_surface, self.text_rect)
         pygame.display.update()
     
     def delete(self):
         # replaces the letter with a white rectangle
-        pygame.draw.rect(Game.SCREEN, pygame.Color("white"), self.bg_rect)
-        pygame.draw.rect(Game.SCREEN, DARK_GRAY, self.bg_rect, 2)
+        pygame.draw.rect(Window.SCREEN, pygame.Color("white"), self.bg_rect)
+        pygame.draw.rect(Window.SCREEN, DARK_GRAY, self.bg_rect, 2)
         pygame.display.update()
