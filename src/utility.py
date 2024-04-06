@@ -9,7 +9,7 @@ def get_word_list():
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
     word_list = soup.find_all('a', href=re.compile("/unscramble/"))
-    return [word.get_text() for word in word_list]
+    return [word.get_text().upper() for word in word_list]
 
 def write_word_list_to_file(word_list):
     with open("word_list.txt", "w") as file:
