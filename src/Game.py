@@ -77,7 +77,9 @@ class Game:
             letter = key_pressed, 
             screen = self.SCREEN, 
             width = GUESS_SIZE_W,
-            height = GUESS_SIZE_H,            
-            bg_color=pygame.Color("green"),
+            height = GUESS_SIZE_H, 
+            outline=True,           
+            bg_color=pygame.Color("white"),
+            outline_color=pygame.Color("black"),
             font_size=60)
         new_letter.draw()
