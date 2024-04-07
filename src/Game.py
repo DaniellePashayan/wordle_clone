@@ -68,8 +68,8 @@ class Game:
         # adds the letter to the current guess
         self.current_guess_string += key_pressed
         self.current_letter_bg_x += GUESS_SIZE_W + 10
-        starting_y = 65
-        current_y = starting_y*(self.count_of_guesses+1)
+        current_y = self.current_letter_bg_y*(self.count_of_guesses+1)+(15*self.count_of_guesses)
+        print(current_y)
         # draws the letter on the screen
         new_letter = Indicator(
             x = self.current_letter_bg_x, 
@@ -100,12 +100,12 @@ class Game:
         
     def check_guess_against_correct_word(self):
         # checks if the current guess is the same as the selected word
-        game_completed = False
         # first checks if the entered word is in the word list
         if self.current_guess_string not in self.valid_words:
             print("Not a valid word")
+        
+        # if the word is correct, the game is won
         if self.current_guess_string == self.selected_word:
-            # if the word is correct, the game is won
             self.game_result = "Win"
             game_completed = True
             # set all the letters to green
@@ -114,10 +114,12 @@ class Game:
                 letter.text_color = pygame.Color("white")
                 letter.outline = False
                 letter.draw()
+                self.game_result = "Win"
         else:
-            if self.count_of_guesses < 5:
+            if self.count_of_guesses < 6:
                 for i in range(5):
                     letter = self.current_guess[i]
+                    # check if letter is in set already
                     if self.current_guess_string[i] == self.selected_word[i]:
                         # if the letter is in the correct position, it will be green
                         letter.bg_color = GREEN
@@ -137,3 +139,7 @@ class Game:
                         print(f'{self.current_guess[i].letter} is grey')
                     letter.draw()
                 pygame.display.update()
+                self.count_of_guesses += 1
+                self.current_guess = []
+                self.current_guess_string = ""
+                self.current_letter_bg_x = 25
