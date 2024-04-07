@@ -12,13 +12,19 @@ def get_word_list():
     return [word.get_text().upper() for word in word_list]
 
 def write_word_list_to_file(word_list):
-    with open("word_list.txt", "w") as file:
+    with open("assets/word_list.txt", "w") as file:
         for word in word_list:
             file.write(word + "\n")
 
 def get_word_list_from_file():
-    with open("word_list.txt", "r") as file:
+    with open("assets/word_list.txt", "r") as file:
         return file.read().splitlines()
+    
+def get_valid_english_words():
+    with open("assets/valid_english_words.txt", "r") as file:
+        # convert all lines to uppercase
+        data = file.read().splitlines()
+        return [word.upper() for word in data]
 
 if __name__ == "__main__":
     word_list = get_word_list()
