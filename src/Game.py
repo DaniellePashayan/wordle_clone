@@ -121,7 +121,7 @@ class Game:
                 letter.outline = False
                 letter.draw()
                 pygame.display.update()
-                time.sleep(0.5)
+                time.sleep(0.25)
                 self.game_result = "Win"
         else:
             if self.count_of_guesses < 6:
@@ -141,7 +141,7 @@ class Game:
                         self.keyboard[index].bg_color = GREEN
                         letter.draw()
                         pygame.display.update()
-                        time.sleep(0.5)
+                        time.sleep(0.25)
                         
                     elif self.current_guess_string[i] in self.selected_word:
                         # if the letter is in the word but not in the correct position, it will be yellow
@@ -153,7 +153,7 @@ class Game:
                             self.keyboard[index].bg_color = YELLOW
                         letter.draw()
                         pygame.display.update()
-                        time.sleep(0.5)
+                        time.sleep(0.25)
                     else:
                         self.current_guess[i].bg_color = DARK_GRAY
                         letter.text_color = pygame.Color("white")
@@ -162,7 +162,7 @@ class Game:
                         self.keyboard[index].bg_color = DARK_GRAY
                         letter.draw()
                         pygame.display.update()
-                        time.sleep(0.5)
+                        time.sleep(0.25)
                 for letter in self.keyboard:
                     letter.draw()
                 pygame.display.update()
