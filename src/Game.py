@@ -3,7 +3,7 @@ import sys
 import random
 from src.settings import *
 from src.indicator import Indicator
-from src.utility import get_word_list
+from src.utility import get_word_list, get_valid_english_words
 
 class Game:
     def __init__(self, SCREEN: pygame.Surface) -> None:
@@ -28,6 +28,7 @@ class Game:
         self.game_result = ""
         
         self.selected_word = self.select_random_word()
+        self.valid_words = get_valid_english_words()
         self.draw_keyboard()
     
     def draw_keyboard(self):
@@ -65,7 +66,6 @@ class Game:
     
     def draw_letter(self, key_pressed: str):
         # adds the letter to the current guess
-        self.current_guess.append(key_pressed)
         self.current_guess_string += key_pressed
         self.current_letter_bg_x += GUESS_SIZE_W + 10
         starting_y = 65
@@ -97,3 +97,43 @@ class Game:
         self.current_guess_string = self.current_guess_string[:-1]
         self.current_guess.pop()
         self.current_letter_bg_x -= GUESS_SIZE_W + 10
+        
+    def check_guess_against_correct_word(self):
+        # checks if the current guess is the same as the selected word
+        game_completed = False
+        # first checks if the entered word is in the word list
+        if self.current_guess_string not in self.valid_words:
+            print("Not a valid word")
+        if self.current_guess_string == self.selected_word:
+            # if the word is correct, the game is won
+            self.game_result = "Win"
+            game_completed = True
+            # set all the letters to green
+            for letter in self.current_guess:
+                letter.bg_color = GREEN
+                letter.text_color = pygame.Color("white")
+                letter.outline = False
+                letter.draw()
+        else:
+            if self.count_of_guesses < 5:
+                for i in range(5):
+                    letter = self.current_guess[i]
+                    if self.current_guess_string[i] == self.selected_word[i]:
+                        # if the letter is in the correct position, it will be green
+                        letter.bg_color = GREEN
+                        letter.text_color = pygame.Color("white")
+                        letter.outline = False
+                        print(f'{letter.letter} is green')
+                    elif self.current_guess_string[i] in self.selected_word:
+                        # if the letter is in the word but not in the correct position, it will be yellow
+                        letter.bg_color = YELLOW
+                        letter.text_color = pygame.Color("white")
+                        letter.outline = False
+                        print(f'{letter.letter} is yellow')
+                    else:
+                        self.current_guess[i].bg_color = DARK_GRAY
+                        letter.text_color = pygame.Color("white")
+                        self.current_guess[i].outline = False
+                        print(f'{self.current_guess[i].letter} is grey')
+                    letter.draw()
+                pygame.display.update()

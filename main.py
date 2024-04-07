@@ -34,7 +34,8 @@ if __name__ == "__main__":
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    print('checking')
+                    if game.current_guess_string != "" and len(game.current_guess) == 5:
+                        game.check_guess_against_correct_word()
                 elif event.key == pygame.K_BACKSPACE:
                     if len(game.current_guess_string) > 0:
                         game.delete_letter()

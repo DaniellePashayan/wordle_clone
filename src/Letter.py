@@ -4,10 +4,10 @@ from settings import *
 from game import Game
 
 class Letter:
-    def __init__(self, text: str, bg_position: tuple) -> None:
+    def __init__(self, text: str, bg_position: tuple, bg_color:str = "white", text_color:str="black") -> None:
         # sets the default values
-        self.bg_color = "white"
-        self.text_color = "black"
+        self.bg_color = bg_color
+        self.text_color = text_color
         
         # passes in the position of where the letter will be placed
         self.bg_position = bg_position
