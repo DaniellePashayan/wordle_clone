@@ -1,6 +1,7 @@
 import pygame
-import sys
 import random
+import time
+
 from src.settings import *
 from src.indicator import Indicator
 from src.utility import get_word_list, get_valid_english_words
@@ -23,7 +24,7 @@ class Game:
         self.current_letter_bg_y = 65
 
         # a list that stores the Indicator objects. the indicator is placeholder that will represent each letter
-        self.indicators = []
+        self.keyboard = []
 
         self.game_result = ""
         
@@ -50,7 +51,7 @@ class Game:
                     width=KEYBOARD_SIZE_W,
                     height=KEYBOARD_SIZE_H, 
                     font_size=KEYBOARD_LETTER_SIZE)
-                self.indicators.append(new_ind)
+                self.keyboard.append(new_ind)
 
                 # shifts the starting position of the letter on the x axis
                 indicator_x += KEYBOARD_SIZE_W + spacing_gap
@@ -69,7 +70,6 @@ class Game:
         self.current_guess_string += key_pressed
         self.current_letter_bg_x += GUESS_SIZE_W + 10
         current_y = self.current_letter_bg_y*(self.count_of_guesses+1)+(15*self.count_of_guesses)
-        print(current_y)
         # draws the letter on the screen
         new_letter = Indicator(
             x = self.current_letter_bg_x, 
@@ -98,6 +98,12 @@ class Game:
         self.current_guess.pop()
         self.current_letter_bg_x -= GUESS_SIZE_W + 10
         
+    def find_keyboard_letter_index(self, letter:str)->int:
+        for i, object in enumerate(self.keyboard):
+            if object.letter == letter:
+                return i
+        return -1
+    
     def check_guess_against_correct_word(self):
         # checks if the current guess is the same as the selected word
         # first checks if the entered word is in the word list
@@ -114,29 +120,50 @@ class Game:
                 letter.text_color = pygame.Color("white")
                 letter.outline = False
                 letter.draw()
+                pygame.display.update()
+                time.sleep(0.5)
                 self.game_result = "Win"
         else:
             if self.count_of_guesses < 6:
+                # iterate through the letters of the word
                 for i in range(5):
                     letter = self.current_guess[i]
+                    # find the index of the letter in the keyboard list
+                    index = self.find_keyboard_letter_index(self.current_guess_string[i])
                     # check if letter is in set already
                     if self.current_guess_string[i] == self.selected_word[i]:
+                        
                         # if the letter is in the correct position, it will be green
                         letter.bg_color = GREEN
                         letter.text_color = pygame.Color("white")
                         letter.outline = False
-                        print(f'{letter.letter} is green')
+                        
+                        self.keyboard[index].bg_color = GREEN
+                        letter.draw()
+                        pygame.display.update()
+                        time.sleep(0.5)
+                        
                     elif self.current_guess_string[i] in self.selected_word:
                         # if the letter is in the word but not in the correct position, it will be yellow
                         letter.bg_color = YELLOW
                         letter.text_color = pygame.Color("white")
                         letter.outline = False
-                        print(f'{letter.letter} is yellow')
+                        
+                        if self.keyboard[index].bg_color != GREEN:
+                            self.keyboard[index].bg_color = YELLOW
+                        letter.draw()
+                        pygame.display.update()
+                        time.sleep(0.5)
                     else:
                         self.current_guess[i].bg_color = DARK_GRAY
                         letter.text_color = pygame.Color("white")
                         self.current_guess[i].outline = False
-                        print(f'{self.current_guess[i].letter} is grey')
+                        
+                        self.keyboard[index].bg_color = DARK_GRAY
+                        letter.draw()
+                        pygame.display.update()
+                        time.sleep(0.5)
+                for letter in self.keyboard:
                     letter.draw()
                 pygame.display.update()
                 self.count_of_guesses += 1
